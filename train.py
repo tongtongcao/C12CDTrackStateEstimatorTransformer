@@ -246,7 +246,7 @@ def main():
     # --------------------------------------------------
     # Load data
     # --------------------------------------------------
-    print("\nLoading CVT data...")
+    print("\nLoading data...")
 
     startT_data = time.time()
 
@@ -270,7 +270,7 @@ def main():
     states_all = np.asarray(states_all, dtype=np.float32)
 
     if len(features_all) == 0:
-        raise ValueError("No valid CVT tracks were loaded.")
+        raise ValueError("No valid tracks were loaded.")
 
     print("Number of tracks:", len(features_all))
     print("Features shape:", features_all.shape)
@@ -329,7 +329,7 @@ def main():
         print("\nLoading normalization statistics from nets/...")
 
         feature_stats_path = (NETS_DIR / f"feature_stats.json")
-        state_stats_path = (NETS_DIR / f"state_stats_cvt.json")
+        state_stats_path = (NETS_DIR / f"state_stats.json")
 
         for path in (feature_stats_path, state_stats_path):
             if not path.exists():
@@ -413,7 +413,7 @@ def main():
             callbacks=[loss_tracker]
         )
 
-        print("\nTraining CVT Transformer...")
+        print("\nTraining Transformer...")
 
         startT_train = time.time()
 
@@ -438,7 +438,7 @@ def main():
         wrapper_model = trackTransformerWrapper(model)
         wrapper_model.eval()
 
-        model_file = (Path(outDir) / f"transformer_cvt_{end_name}.pt")
+        model_file = (Path(outDir) / f"transformer_{end_name}.pt")
 
         torchscript_model = torch.jit.script(wrapper_model)
         torchscript_model.save(model_file)
@@ -504,12 +504,6 @@ def main():
     # --------------------------------------------------
     # Diagnostic plots
     # --------------------------------------------------
-
-    # NOTE:
-    # The original DC plotter uses DC-specific parameter
-    # names and plotting ranges. Update plotter.py for
-    # CVT before enabling these two methods.
-    #
     plotter.plot_residuals(all_targets_denorm, all_preds_denorm, args.scale)
     plotter.plot_pred_target(all_targets_denorm, all_preds_denorm, args.scale)
 

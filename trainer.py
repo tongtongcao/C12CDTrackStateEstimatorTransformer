@@ -9,7 +9,7 @@ from pytorch_lightning.callbacks import Callback
 
 
 # --------------------------------------------------
-# CVT configuration
+# Configuration
 # --------------------------------------------------
 STATE_DIM = 5
 
@@ -29,7 +29,7 @@ STATE_NAMES = ["d0", "phi0", "kappa", "z0", "tandip"]
 
 class trackDataset(Dataset):
     """
-    Dataset for CVT track-state estimation.
+    Dataset for track-state estimation.
 
     Each sample contains:
 
@@ -177,7 +177,7 @@ def collate_fn(batch):
 
 class trackTransformer(pl.LightningModule):
     """
-    Transformer-based CVT track-state estimator.
+    Transformer-based track-state estimator.
 
     Input:
         x:          [B, 9, 3]
