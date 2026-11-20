@@ -340,7 +340,7 @@ def main():
     # --------------------------------------------------
     # Dataset
     # --------------------------------------------------
-    dataset = TrackDataset(features=features_all, valid_mask=masks_all, states=states_all, normalize=True, feature_stats=feature_stats, state_stats=state_stats)
+    dataset = trackDataset(features=features_all, valid_mask=masks_all, states=states_all, normalize=True, feature_stats=feature_stats, state_stats=state_stats)
 
     train_set = Subset(dataset, train_indices)
     val_set = Subset(dataset, val_indices)
@@ -374,7 +374,7 @@ def main():
     if args.hidden_dim % args.nhead != 0:
         raise ValueError("hidden_dim must be divisible by nhead.")
 
-    model = TrackTransformer(hidden_dim=args.hidden_dim, nhead=args.nhead, num_layers=args.num_layers, lr=args.lr, state_stats=state_stats)
+    model = trackTransformer(hidden_dim=args.hidden_dim, nhead=args.nhead, num_layers=args.num_layers, lr=args.lr, state_stats=state_stats)
 
     loss_tracker = LossTracker()
 
@@ -435,7 +435,7 @@ def main():
         model = model.to("cpu")
         model.eval()
 
-        wrapper_model = TrackTransformerWrapper(model)
+        wrapper_model = trackTransformerWrapper(model)
         wrapper_model.eval()
 
         model_file = (Path(outDir) / f"transformer_cvt_{end_name}.pt")

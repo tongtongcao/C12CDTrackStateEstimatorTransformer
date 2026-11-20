@@ -27,7 +27,7 @@ STATE_NAMES = ["d0", "phi0", "kappa", "z0", "tandip"]
 # Dataset
 # --------------------------------------------------
 
-class TrackDataset(Dataset):
+class trackDataset(Dataset):
     """
     Dataset for CVT track-state estimation.
 
@@ -175,7 +175,7 @@ def collate_fn(batch):
 # Transformer model
 # --------------------------------------------------
 
-class TrackTransformer(pl.LightningModule):
+class trackTransformer(pl.LightningModule):
     """
     Transformer-based CVT track-state estimator.
 
@@ -352,7 +352,7 @@ class TrackTransformer(pl.LightningModule):
 # TorchScript inference wrapper
 # --------------------------------------------------
 
-class TrackTransformerWrapper(nn.Module):
+class trackTransformerWrapper(nn.Module):
     """
     Inference interface:
 
